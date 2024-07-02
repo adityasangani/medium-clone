@@ -5,19 +5,12 @@ Welcome to the Medium Clone project! This is a web application inspired by the p
 ## Table of Contents
 
 - [Demo](#demo)
-- [Features](#features)
 - [Tech Stack](#tech-stack)
 - [Installation](#installation)
 
 ## Demo
 
 You can access the live demo of the application [here](https://medium-clone-seven-chi.vercel.app/signup).
-
-## Features
-
-- User authentication and authorization using JWT.
-- Create and view blog posts.
-- Responsive design.
 
 ## Tech Stack
 
