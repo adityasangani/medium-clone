@@ -31,9 +31,7 @@ userRouter.post("/signup", async (c) => {
       },
     });
     const token = await sign({ id: user.id }, c.env.JWT_SECRET);
-    return c.json({
-      jwt: token,
-    });
+    return c.text(token);
   } catch (e) {
     return c.status(403);
   }
@@ -51,18 +49,23 @@ userRouter.post("/signin", async (c) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env?.DATABASE_URL,
   }).$extends(withAccelerate());
-  const user = await prisma.user.findUnique({
-    where: {
-      email: body.email,
-      password: body.password,
-    },
-  });
-  if (!user) {
-    return c.json({ error: "User not found" });
-  } else {
-    const token = await sign({ id: user.id }, c.env.JWT_SECRET);
-    return c.json({
-      jwt: token,
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        email: body.email,
+        password: body.password,
+      },
     });
+    if (!user) {
+      c.status(403);
+      return c.json({ message: "Incorrect credentials" });
+    } else {
+      const token = await sign({ id: user.id }, c.env.JWT_SECRET);
+      return c.text(token);
+    }
+  } catch (e) {
+    console.log(e);
+    c.status(411);
+    return c.text("invalid");
   }
 });
