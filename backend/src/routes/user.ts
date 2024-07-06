@@ -70,3 +70,31 @@ userRouter.post("/signin", async (c) => {
     return c.text("invalid");
   }
 });
+
+userRouter.get("/profile", async (c) => {
+  const userEmail = c.req.query("email") || "";
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env?.DATABASE_URL,
+  }).$extends(withAccelerate());
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        email: userEmail,
+      },
+      select: {
+        name: true,
+        email: true,
+      },
+    });
+    if (!user) {
+      c.status(403);
+      return c.json({ message: "User not found" });
+    } else {
+      return c.json(user);
+    }
+  } catch (e) {
+    console.log(e);
+    c.status(411);
+    return c.text("invalid");
+  }
+});
