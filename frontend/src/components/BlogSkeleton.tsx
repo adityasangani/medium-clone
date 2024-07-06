@@ -8,7 +8,6 @@ export const BlogSkeleton = () => {
             <div className="h-2 bg-gray-200 rounded-full max-w-[360px] mb-2.5"></div>
             <div className="h-2 bg-gray-200 rounded-full max-w-[360px] mb-2.5"></div>
             <div className="flex justify-center flex-col"></div>
-            <span className="pl-2">&#183;</span>
             <div className="pl-2 text-sm font-light text-slate-900 flex justify-center flex-col">
               <div className="h-2 bg-gray-200 rounded-full max-w-[360px] mb-2.5"></div>
             </div>

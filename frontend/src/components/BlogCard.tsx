@@ -42,6 +42,7 @@ export const BlogCard = ({
   );
 };
 
+
 export function Avatar({
   name,
   size = "small",

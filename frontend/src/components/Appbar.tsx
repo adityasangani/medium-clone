@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
 import { Avatar } from "./BlogCard";
+import { useRecoilValue } from "recoil";
+import { userAtom } from "../store/atoms/count";
 
 export const Appbar = () => {
+  const user = useRecoilValue(userAtom);
+
   return (
     <div className="border-b flex justify-between px-10 py-4">
       <Link
@@ -20,7 +24,7 @@ export const Appbar = () => {
           </button>
         </Link>
 
-        <Avatar name="Aditya" size="big" />
+        <Avatar name={user?.name || "Guest"} size="big" />
       </div>
     </div>
   );
