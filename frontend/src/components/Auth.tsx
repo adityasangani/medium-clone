@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 // import { BACKEND_URL } from "../config";
 import { useSetRecoilState } from "recoil";
 import { UserType, userAtom } from "../store/atoms/count";
+import { BACKEND_URL } from "../config";
 
 export const Auth = ({ type }: { type: "signup" | "signin" }) => {
   const setUser = useSetRecoilState<UserType | null>(userAtom);
@@ -18,17 +19,18 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
   async function sendRequest() {
     try {
       const response = await axios.post(
-        // `${BACKEND_URL}/api/v1/user/${type === "signup" ? "signup" : "signin"}`,
-        `http://localhost:8787/api/v1/user/${
-          type === "signup" ? "signup" : "signin"
-        }`,
+        `${BACKEND_URL}/api/v1/user/${type === "signup" ? "signup" : "signin"}`,
+        // `http://localhost:8787/api/v1/user/${
+        //   type === "signup" ? "signup" : "signin"
+        // }`,
         postInputs
       );
       const jwt = response.data;
       localStorage.setItem("token", jwt);
       if (type === "signin") {
         const userResponse = await axios.get(
-          `http://localhost:8787/api/v1/user/profile`,
+          `${BACKEND_URL}/api/v1/user/profile`,
+          // `http://localhost:8787/api/v1/user/profile`,
           {
             params: {
               email: postInputs.email,
